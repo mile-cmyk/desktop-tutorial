@@ -1,0 +1,89 @@
+:root{
+  --bg1:#0b1e3a; --bg2:#173a63; --accent:#ffcb3d; --panel:#0f2847e6;
+  --good:#3ddc84; --bad:#ff5d5d; --white:#f4f8ff; --muted:#9db4d4;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+
+
+*{box-sizing:border-box;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; min-height:100vh; font-family:'Segoe UI',Arial,sans-serif;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  color:var(--white); display:flex; align-items:center; justify-content:center;
+  overflow-x:hidden;
+}
+
+#app{width:100%; max-width:520px; padding:16px; margin:auto;}
+
+.card{
+  background:var(--panel); border-radius:18px; padding:24px 20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4); border:1px solid #ffffff22;
+}
+
+h1{font-size:1.4rem; text-align:center; margin:0 0 4px; color:var(--accent);}
+
+h2{font-size:1.05rem; text-align:center; margin:0 0 16px; color:var(--muted); font-weight:normal;}
+
+input{
+  width:100%; padding:12px 14px; margin:8px 0; border-radius:10px; border:1px solid #ffffff33;
+  background:#0a1c33; color:var(--white); font-size:1rem;
+}
+
+button{
+  width:100%; padding:13px; margin-top:12px; border:none; border-radius:10px;
+  background:var(--accent); color:#1a1a1a; font-weight:bold; font-size:1rem; cursor:pointer;
+  transition:transform .1s;
+}
+
+button:active{transform:scale(.97);}
+
+button.secondary{background:transparent; border:1px solid var(--muted); color:var(--muted);}
+
+.linklike{background:none;border:none;color:var(--accent);text-decoration:underline;cursor:pointer;font-size:.9rem;width:auto;padding:0;margin-top:10px;display:block;text-align:center;}
+
+.hidden{display:none !important;}
+
+.err{color:var(--bad); font-size:.85rem; min-height:18px; text-align:center;}
+
+/* Character select */
+.planes{display:flex; gap:12px; justify-content:center; margin:18px 0;}
+
+.plane-card{
+  flex:1; text-align:center; padding:14px 6px; border-radius:14px; border:2px solid #ffffff22;
+  background:#0a1c33; cursor:pointer; transition:.15s;
+}
+.plane-card.selected{border-color:var(--accent); background:#1c3358;}
+.plane-card.locked{opacity:.4; cursor:not-allowed;}
+.plane-icon{font-size:2.4rem; display:block; margin-bottom:6px;}
+.plane-name{font-size:.8rem; color:var(--muted);}
+
+/* Game HUD */
+.hud{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; font-size:.9rem;}
+.lives span{font-size:1.2rem; margin-right:2px;}
+.progress-wrap{height:6px; background:#0a1c33; border-radius:4px; overflow:hidden; margin-bottom:16px;}
+.progress-bar{height:100%; background:var(--accent); width:0%; transition:width .3s;}
+.part-tag{font-size:.75rem; color:var(--muted); text-align:center; margin-bottom:10px; letter-spacing:1px;}
+
+.plane-stage{text-align:center; font-size:3.5rem; margin:6px 0 18px; position:relative; min-height:70px;}
+.plane-stage .fx{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); font-size:2.8rem;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}}
+.shake{animation:shake .35s;}
+@keyframes fadepop{0%{transform:scale(.3);opacity:0;}60%{transform:scale(1.15);opacity:1;}100%{transform:scale(1);opacity:1;}}
+.pop{animation:fadepop .4s ease-out;}
+@keyframes flyaway{0%{transform:translate(0,0) rotate(0deg);opacity:1;}100%{transform:translate(220px,-160px) rotate(-18deg);opacity:0;}}
+.flyaway{animation:flyaway 1.2s ease-in forwards;}
+
+.question{font-size:1.05rem; text-align:center; margin-bottom:18px; min-height:70px; line-height:1.4;}
+.theme-tag{font-size:.75rem; color:var(--accent); text-align:center; margin-bottom:6px; text-transform:uppercase; letter-spacing:.5px;}
+.option{
+  display:block; width:100%; text-align:left; padding:12px 14px; margin:8px 0; border-radius:10px;
+  border:1px solid #ffffff33; background:#0a1c33; color:var(--white); font-size:.95rem; cursor:pointer;
+}
+.option:disabled{cursor:default;}
+.option.correct{background:var(--good); color:#053; border-color:var(--good);}
+.option.wrong{background:var(--bad); color:#500; border-color:var(--bad);}
+
+.score-big{font-size:2.2rem; text-align:center; color:var(--accent); margin:10px 0;}
+.center{text-align:center;}
