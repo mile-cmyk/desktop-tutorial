@@ -7,80 +7,77 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="app">
+    <div id="app">
 
-  <!-- LOGIN -->
-  <div id="scr-login" class="card">
-    <h1>✈️ Vuelo Coordinado</h1>
-    <h2>Inicia sesión para volar</h2>
-    <input id="login-user" placeholder="Usuario" autocomplete="off">
-    <input id="login-pass" type="password" placeholder="Contraseña">
-    <div class="err" id="login-err"></div>
-    <button onclick="doLogin()">Iniciar sesión</button>
-    <button class="linklike" onclick="showScreen('scr-register')">¿No tienes cuenta? Regístrate</button>
-  </div>
+        <!-- PLAYER -->
+        <div id="scr-player" class="card">
+            <h1>✈️ Vuelo Coordinado</h1>
 
-  <!-- REGISTER -->
-  <div id="scr-register" class="card hidden">
-    <h1>✈️ Vuelo Coordinado</h1>
-    <h2>Crea tu cuenta de piloto</h2>
-    <input id="reg-user" placeholder="Usuario" autocomplete="off">
-    <input id="reg-pass" type="password" placeholder="Contraseña">
-    <div class="err" id="reg-err"></div>
-    <button onclick="doRegister()">Registrarme</button>
-    <button class="linklike" onclick="showScreen('scr-login')">Ya tengo cuenta</button>
-  </div>
+            <h2 id="player-title">Crea tu perfil de piloto</h2>
 
-  <!-- CHARACTER SELECT -->
-  <div id="scr-select" class="card hidden">
-    <h1>Elige tu avión</h1>
-    <h2 id="select-sub">Modelos disponibles</h2>
-    <div class="planes">
-      <div class="plane-card" data-plane="0" onclick="selectPlane(0)">
-        <span class="plane-icon">🛩️</span><span class="plane-name">Cessna Ligero</span>
-      </div>
-      <div class="plane-card" data-plane="1" onclick="selectPlane(1)">
-        <span class="plane-icon">✈️</span><span class="plane-name">Turbo Halcón</span>
-      </div>
-      <div class="plane-card locked" data-plane="2" id="plane2-card">
-        <span class="plane-icon">🚀</span><span class="plane-name">Jet Élite (5.9)</span>
-      </div>
+            <p id="player-message" class="center" style="color:var(--muted)">
+                Escribe tu nombre para comenzar.
+            </p>
+
+            <input id="player-name"
+                   placeholder="Nombre del piloto"
+                   autocomplete="off">
+
+            <div class="err" id="player-err"></div>
+
+            <button onclick="startPlayer()">Comenzar</button>
+        </div>
+
+        <!-- CHARACTER SELECT -->
+        <div id="scr-select" class="card hidden">
+            <h1>Elige tu avión</h1>
+            <h2 id="select-sub">Modelos disponibles</h2>
+            <div class="planes">
+                <div class="plane-card" data-plane="0" onclick="selectPlane(0)">
+                    <span class="plane-icon">🛩️</span><span class="plane-name">Cessna Ligero</span>
+                </div>
+                <div class="plane-card" data-plane="1" onclick="selectPlane(1)">
+                    <span class="plane-icon">✈️</span><span class="plane-name">Turbo Halcón</span>
+                </div>
+                <div class="plane-card locked" data-plane="2" id="plane2-card">
+                    <span class="plane-icon">🚀</span><span class="plane-name">Jet Élite (5.9)</span>
+                </div>
+            </div>
+            <button onclick="startPart()" id="btn-start">Comenzar vuelo</button>
+        </div>
+
+        <!-- GAME -->
+        <div id="scr-game" class="card hidden">
+            <div class="part-tag" id="part-tag">PARTE 1 · PUNTO 5.8 COORDINACIÓN</div>
+            <div class="hud">
+                <div class="lives" id="lives-display"></div>
+                <div id="score-display">Puntaje: 0</div>
+            </div>
+            <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+            <div class="plane-stage" id="plane-stage">🛩️</div>
+            <div class="theme-tag" id="theme-tag"></div>
+            <div class="question" id="question-text"></div>
+            <div id="options-wrap"></div>
+        </div>
+
+        <!-- PART RESULT -->
+        <div id="scr-partresult" class="card hidden">
+            <h1 id="pr-title">Parte 1 completada</h1>
+            <div class="score-big" id="pr-score">0.0</div>
+            <p class="center" id="pr-msg" style="color:var(--muted)"></p>
+            <button onclick="continueAfterPart()" id="pr-btn">Continuar</button>
+        </div>
+
+        <!-- FINAL -->
+        <div id="scr-final" class="card hidden">
+            <div class="plane-stage" style="font-size:4rem;" id="final-plane">🛫</div>
+            <h1>¡Vuelo completado!</h1>
+            <p class="center" style="color:var(--muted)">Dominaste la coordinación en vuelo y el vuelo recto y nivelado. Tu avión despega rumbo al horizonte.</p>
+            <div class="score-big" id="final-score">0.0</div>
+            <button onclick="restartAll()">Volver a jugar</button>
+        </div>
+
     </div>
-    <button onclick="startPart()" id="btn-start">Comenzar vuelo</button>
-  </div>
-
-  <!-- GAME -->
-  <div id="scr-game" class="card hidden">
-    <div class="part-tag" id="part-tag">PARTE 1 · PUNTO 5.8 COORDINACIÓN</div>
-    <div class="hud">
-      <div class="lives" id="lives-display"></div>
-      <div id="score-display">Puntaje: 0</div>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
-    <div class="plane-stage" id="plane-stage">🛩️</div>
-    <div class="theme-tag" id="theme-tag"></div>
-    <div class="question" id="question-text"></div>
-    <div id="options-wrap"></div>
-  </div>
-
-  <!-- PART RESULT -->
-  <div id="scr-partresult" class="card hidden">
-    <h1 id="pr-title">Parte 1 completada</h1>
-    <div class="score-big" id="pr-score">0.0</div>
-    <p class="center" id="pr-msg" style="color:var(--muted)"></p>
-    <button onclick="continueAfterPart()" id="pr-btn">Continuar</button>
-  </div>
-
-  <!-- FINAL -->
-  <div id="scr-final" class="card hidden">
-    <div class="plane-stage" style="font-size:4rem;" id="final-plane">🛫</div>
-    <h1>¡Vuelo completado!</h1>
-    <p class="center" style="color:var(--muted)">Dominaste la coordinación en vuelo y el vuelo recto y nivelado. Tu avión despega rumbo al horizonte.</p>
-    <div class="score-big" id="final-score">0.0</div>
-    <button onclick="restartAll()">Volver a jugar</button>
-  </div>
-
-</div>
 
 <script src="script.js"></script>
 </body>
